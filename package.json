@@ -1,0 +1,16 @@
+{
+  "name": "cpq",
+  "version": "1.0.0",
+  "description": "cpq playwright homework",
+  "main": "index.js",
+  "scripts": {},
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.45.0",
+    "@types/node": "^20.14.9"
+  },
+  "dependencies": {
+    "current-date": "^0.1.1"
+  }
+}

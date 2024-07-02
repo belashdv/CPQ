@@ -1,0 +1,13 @@
+{
+    "baseURL": 
+    {
+        "QA": "https://claritylabs-tst.cpq.cloud.sap/Login.aspx?nextUrl="
+    }, 
+    "users": 
+    {
+        "login": [
+            "aleonenko"
+        ], 
+        "password": "StrongPassword123!"
+    }
+}
