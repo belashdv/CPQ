@@ -2,7 +2,6 @@ import {expect} from '@playwright/test';
 import {test} from '../BaseTest'
 import { Url, Data } from '../../Utils/Url';
 import Log from '../../Utils/Logger';
-var mydate = require('current-date');
 
 test.describe('Configurator tests. @Configurator', () => {
     test.beforeEach(async ({pageManager}) => {
@@ -33,8 +32,22 @@ test.describe('Configurator tests. @Configurator', () => {
 
         Log.step('6. Check if Date Modified equal current date');
         const dateModified = pageManager.quoteInfo.TextInfo.DateModified.innerText();
-        await expect(dateModified).toBe(mydate());
+        console.log(dateModified);
+        await expect(dateModified).toBe(todayDate());
 
         await pageManager.page.pause();
     });
 });
+
+
+
+
+
+
+
+function todayDate() {
+    let day = new Date().getDate().toString().padStart(2,'0');
+    let month = new Date().getMonth() + 1;
+    let year = new Date().getFullYear().toString().slice(2, 4);
+    return day+'/'+month.toString().padStart(2,'0')+'/'+year;
+}
