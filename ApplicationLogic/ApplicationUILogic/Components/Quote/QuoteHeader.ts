@@ -18,11 +18,14 @@ export class QuoteHeader extends BaseApplicationPage {
         CheckOut: this.Containers.CartHeaderContainer.locator('[role="button"]').locator('"CheckOut"'), 
         AddItem: this.Containers.CartHeaderContainer.locator('[role="button"]').locator('"Add Item"'), 
         Reprice: this.Containers.CartHeaderContainer.locator('[role="button"]').locator('"Reprice"'),
-        CustomerComments: this.Containers.CartHeaderContainer.locator('[id="customerComments"]'),         // there is a modal window 
+        CustomerComments: this.Containers.CartHeaderContainer.locator('[id="customerComments"]'), 
+        SaveQuote: this.Containers.CartHeaderContainer.locator('//span[@data-bind="text: primaryActions()[2].name"]'),        // there is a modal window 
+        
         InvolvedParties: this.Containers.CartTabsContainer.locator('[class="cartTab"]').locator('"Involved Parties"'), 
         ShippingInfo: this.Containers.CartTabsContainer.locator('[class="cartTab"]').locator('"Shipping info"'), 
         SolutionDesign: this.Containers.CartTabsContainer.locator('[class="cartTab"]').locator('"Solution Design"'), 
         EPRSettings: this.Containers.CartTabsContainer.locator('[class="cartTab"]').locator('"EPR Settings"'), 
+        
     }; 
 
     DropDowns = {

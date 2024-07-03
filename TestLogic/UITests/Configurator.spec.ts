@@ -23,7 +23,9 @@ test.describe('Configurator tests. @Configurator', () => {
         Log.step('3. Select "HD150" hard drive and "DVD12X" optical drive');
         await pageManager.ASUS_Zan.ChooseAttributes.HardDrive('HD150');
         await pageManager.ASUS_Zan.ChooseAttributes.OpticalDrive('DVD12X');
-        let partNumber = pageManager.configuratorCommon.Elements.PartNumber.innerText();
+        await pageManager.page.waitForTimeout(1500);        //because playwright too fast
+        let total = await pageManager.configuratorCommon.Elements.Total.innerText();
+        Log.infoStep(`Total summ should be: ${total}`);
 
         Log.step('4. Click on "Add to quote" button');
         await pageManager.configuratorCommon.Buttons.AddToQuote.click();
@@ -43,9 +45,12 @@ test.describe('Configurator tests. @Configurator', () => {
         await expect(pageManager.page.locator('"ASUL"').last()).toBeVisible();
         await expect(pageManager.page.locator('"DVD12X"').first()).toBeVisible();
     
-        
+        Log.step('8. Check if total sum is correct');
+        let totalExtendedAmount = await pageManager.totalSummary.Fields.totalExtendedAmount.last().innerText();
+        expect(totalExtendedAmount.toString().replace(/\s/g, '')).toBe(total);
 
-        await pageManager.page.pause();
+        Log.step('9. Press "Save quote" button');
+        await pageManager.quoteHeader.Buttons.SaveQuote.click();
     });
 });
 
