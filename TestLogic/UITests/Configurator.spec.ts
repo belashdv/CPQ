@@ -23,6 +23,7 @@ test.describe('Configurator tests. @Configurator', () => {
         Log.step('3. Select "HD150" hard drive and "DVD12X" optical drive');
         await pageManager.ASUS_Zan.ChooseAttributes.HardDrive('HD150');
         await pageManager.ASUS_Zan.ChooseAttributes.OpticalDrive('DVD12X');
+        let partNumber = pageManager.configuratorCommon.Elements.PartNumber.innerText();
 
         Log.step('4. Click on "Add to quote" button');
         await pageManager.configuratorCommon.Buttons.AddToQuote.click();
@@ -32,9 +33,15 @@ test.describe('Configurator tests. @Configurator', () => {
 
         Log.step('6. Check if Date Modified equal current date');
         await expect(pageManager.quoteInfo.TextInfo.DateModified).toHaveText(todayDate());
+        Log.infoStep(`Current date: ${todayDate()}`);
 
         Log.step('7. Check if chosen configurable product with options is in Products');
-        await 
+        // const isDisabled = await pageManager.products.Fields.Item.isDisabled();
+        // if (!isDisabled) {
+        // await expect(pageManager.products.Fields.Item).toHaveText('ASUL');
+        // }
+        await expect(pageManager.page.locator('"ASUL"').last()).toBeVisible();
+        await expect(pageManager.page.locator('"DVD12X"').first()).toBeVisible();
     
         
 

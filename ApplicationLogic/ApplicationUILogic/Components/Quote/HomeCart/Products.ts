@@ -17,6 +17,6 @@ export class Products extends BaseApplicationPage {
 
     Fields = {
         AddItems: this.Containers.MainContainer.locator('[id="quickAddInput"]'),
-        Item: this.Containers.MainContainer.locator('//*[contains(@class,"item-column item-column-sticky new-quote-item-actions-sticky")]')
+        Item: this.Containers.MainContainer.locator(`//*[contains(@class,'item-column item-column-sticky new-quote-item-actions-sticky')]`)
     }
 }
