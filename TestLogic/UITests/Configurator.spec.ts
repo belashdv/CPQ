@@ -31,9 +31,12 @@ test.describe('Configurator tests. @Configurator', () => {
         await pageManager.quoteInfo.DropDowns.Status.selectOption({ label: 'VN Preparing'});
 
         Log.step('6. Check if Date Modified equal current date');
-        const dateModified = pageManager.quoteInfo.TextInfo.DateModified.innerText();
-        console.log(dateModified);
-        await expect(dateModified).toBe(todayDate());
+        await expect(pageManager.quoteInfo.TextInfo.DateModified).toHaveText(todayDate());
+
+        Log.step('7. Check if chosen configurable product with options is in Products');
+        await 
+    
+        
 
         await pageManager.page.pause();
     });
