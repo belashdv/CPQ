@@ -50,7 +50,8 @@ test.describe('Configurator tests. @Configurator', () => {
         expect(totalExtendedAmount.toString().replace(/\s/g, '')).toBe(total);
 
         Log.step('9. Press "Save quote" button');
-        await pageManager.quoteHeader.Buttons.SaveQuote.click();
+        //await pageManager.quoteHeader.Buttons.SaveQuote.click();
+        await pageManager.page.locator('"Save Quote"').click();
     });
 });
 
