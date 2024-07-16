@@ -11,7 +11,6 @@ export class ASUS_Zan extends BaseApplicationPage {
     }; 
 
     ChooseAttributes = {
-        HardDrive: async (param: string) => await this.page.locator(`//span[contains(.,"${param}")]/preceding-sibling::input//parent::*/parent::*`).click(), 
-        OpticalDrive: async (param: string) => await this.page.locator(`//span[contains(.,"${param}")]/preceding-sibling::input//parent::*/parent::*`).click(), 
+        Attribute: async (param: string) => await this.page.locator(`//span[contains(.,"${param}")]/preceding-sibling::input//parent::*/parent::*`).click(), 
     };
 };

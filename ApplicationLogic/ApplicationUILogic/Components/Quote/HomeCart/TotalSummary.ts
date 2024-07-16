@@ -15,6 +15,11 @@ export class TotalSummary extends BaseApplicationPage {
     };
 
     Fields = {
-        totalExtendedAmount: this.Containers.MainContainer.locator('.totals-summary-cell'),
+        totalExtendedAmountOneTime: this.Containers.MainContainer.locator('[data-title="Extended Amount NRC"]').last(),
     };
+
+    async getTotalExtendedAmount() {
+        let amount = await this.Fields.totalExtendedAmountOneTime.innerText();
+        return amount;
+    }
 }

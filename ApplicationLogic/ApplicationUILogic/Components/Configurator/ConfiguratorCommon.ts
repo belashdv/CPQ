@@ -24,4 +24,9 @@ export class ConfiguratorCommon extends BaseApplicationPage {
         ViewFavorites: this.Containers.MainContainer.locator('[title="View Favorites"]'), 
         AddToFavorites: this.Containers.MainContainer.locator('[title="Add To Favorites"]'), 
     };
+
+    async GetTotalPrice() {
+        let price = await this.Elements.Total.innerText()
+        return price;
+    }
 };

@@ -2,17 +2,11 @@ import {expect} from '@playwright/test';
 import {test} from '../BaseTest'
 import { Url, Data } from '../../Utils/Url';
 import Log from '../../Utils/Logger';
+import { HardDriveEnum, OpticalDrive, NotebookID } from '../../Data/Notebook.enum';
+import { DropDownStatus } from '../../Data/Quote.enum';
 
 test.describe('Configurator tests. @Configurator', () => {
-    test.beforeEach(async ({pageManager}) => {
-        //BaseTest.setFeatureSuite.configurator();
-
-        Log.preStep('Open the page.');
-        await pageManager.page.goto(Url.CPQUrl);
-
-        Log.preStep('Enter credentials.');
-        await pageManager.loginPage.LogIn(Data.login, Data.password); 
-    });
+   
     test('Choose QA dropdown and choose QA:Laptops. @Configurator', async ({pageManager}) => {
         Log.step('1. Select Category "QA: Hardware".');
         await pageManager.categoriesDetails.SelectNecessarySubCategory('QA: Hardware', 'QA:Laptops');
@@ -21,17 +15,17 @@ test.describe('Configurator tests. @Configurator', () => {
         await pageManager.mainCatalog.ClickOnButtons.Configure('ASUS');
 
         Log.step('3. Select "HD150" hard drive and "DVD12X" optical drive');
-        await pageManager.ASUS_Zan.ChooseAttributes.HardDrive('HD150');
-        await pageManager.ASUS_Zan.ChooseAttributes.OpticalDrive('DVD12X');
+        await pageManager.ASUS_Zan.ChooseAttributes.Attribute(HardDriveEnum.HD150);
+        await pageManager.ASUS_Zan.ChooseAttributes.Attribute(OpticalDrive.DVD12X);
         await pageManager.page.waitForTimeout(1500);        //because playwright too fast
-        let total = await pageManager.configuratorCommon.Elements.Total.innerText();
+        let total = await pageManager.configuratorCommon.GetTotalPrice();
         Log.infoStep(`Total summ should be: ${total}`);
 
         Log.step('4. Click on "Add to quote" button');
         await pageManager.configuratorCommon.Buttons.AddToQuote.click();
 
         Log.step('5. Choose "VN Preparing" from "Status" dropdown');
-        await pageManager.quoteInfo.DropDowns.Status.selectOption({ label: 'VN Preparing'});
+        await pageManager.quoteInfo.DropDowns.Status.selectOption(DropDownStatus.VNPreparing);
 
         Log.step('6. Check if Date Modified equal current date');
         await expect(pageManager.quoteInfo.TextInfo.DateModified).toHaveText(todayDate());
@@ -42,11 +36,12 @@ test.describe('Configurator tests. @Configurator', () => {
         // if (!isDisabled) {
         // await expect(pageManager.products.Fields.Item).toHaveText('ASUL');
         // }
-        await expect(pageManager.page.locator('"ASUL"').last()).toBeVisible();
-        await expect(pageManager.page.locator('"DVD12X"').first()).toBeVisible();
+        await expect(pageManager.page.locator(`"${NotebookID.ASUL}"`).last()).toBeVisible(); 
+        await expect(pageManager.page.locator(`"${OpticalDrive.DVD12X}"`).first()).toBeVisible(); 
     
         Log.step('8. Check if total sum is correct');
-        let totalExtendedAmount = await pageManager.totalSummary.Fields.totalExtendedAmount.last().innerText();
+        let totalExtendedAmount = await pageManager.totalSummary.getTotalExtendedAmount(); 
+        //await pageManager.page.pause();
         expect(totalExtendedAmount.toString().replace(/\s/g, '')).toBe(total);
 
         Log.step('9. Press "Save quote" button');
